@@ -1,11 +1,10 @@
 package forum.hub.api.domain.topico;
 
-import forum.hub.api.domain.DTO.DadosCadastroTopicos;
+import forum.hub.api.domain.dto.DadosCadastroTopicos;
 import forum.hub.api.domain.curso.Categoria;
 import forum.hub.api.domain.curso.Curso;
 import forum.hub.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -57,5 +56,25 @@ public class Topico {
         this.autor = autor;
         this.curso = curso;
         this.categoria = dados.categoria();
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

@@ -1,8 +1,9 @@
 package forum.hub.api.controller;
 
-import forum.hub.api.domain.DTO.DadosCadastroTopicos;
-import forum.hub.api.domain.DTO.DadosListagemTopicos;
-import forum.hub.api.domain.DTO.DadosDetalhamentoTopico;
+import forum.hub.api.domain.dto.DadosAtualizaTopico;
+import forum.hub.api.domain.dto.DadosCadastroTopicos;
+import forum.hub.api.domain.dto.DadosListagemTopicos;
+import forum.hub.api.domain.dto.DadosDetalhamentoTopico;
 import forum.hub.api.domain.topico.Topico;
 import forum.hub.api.domain.topico.TopicoService;
 import jakarta.transaction.Transactional;
@@ -32,7 +33,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemTopicos>> listarTopicos(@PageableDefault(page = 0, size = 10, sort = {"curso"})Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemTopicos>> listarTopicos(@PageableDefault(size = 10, sort = {"curso"})Pageable paginacao) {
         Page<DadosListagemTopicos> topicos = topicoService.listarTopicos(paginacao);
         return ResponseEntity.ok(topicos);
     }
@@ -41,5 +42,19 @@ public class TopicoController {
     public ResponseEntity detalhamentoDoTopico(@PathVariable Long id) {
         DadosDetalhamentoTopico detalhamento = topicoService.detalhamentoDoTopico(id);
         return ResponseEntity.ok(detalhamento);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosDetalhamentoTopico> autualizaTopico(@PathVariable Long id, @RequestBody @Valid DadosAtualizaTopico dados) {
+        Topico topicoAtualizado = topicoService.atualizaTopico(id, dados);
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topicoAtualizado));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity inativaTopico(@PathVariable Long id) {
+        Topico topicoInativado = topicoService.inativaTopico(id);
+        return ResponseEntity.noContent().build();
     }
 }

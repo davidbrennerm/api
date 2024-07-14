@@ -1,4 +1,4 @@
-package forum.hub.api.domain.DTO;
+package forum.hub.api.domain.dto;
 
 import forum.hub.api.domain.usuario.Perfil;
 import forum.hub.api.domain.usuario.Usuario;
